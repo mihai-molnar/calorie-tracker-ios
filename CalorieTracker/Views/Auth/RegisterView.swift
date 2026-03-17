@@ -21,17 +21,15 @@ struct RegisterView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-            VStack(spacing: 16) {
-                TextField("Email", text: $viewModel.email)
+            VStack(spacing: 14) {
+                StyledTextField(placeholder: "Email", text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
 
-                SecureField("Password", text: $viewModel.password)
+                StyledTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
                     .textContentType(.newPassword)
-                    .textFieldStyle(.roundedBorder)
             }
             .padding(.horizontal)
 
@@ -48,12 +46,16 @@ struct RegisterView: View {
                 if viewModel.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
                 } else {
                     Text("Create Account")
+                        .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
                 }
             }
             .buttonStyle(.borderedProminent)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .disabled(!viewModel.isValid || viewModel.isLoading)
             .padding(.horizontal)
 

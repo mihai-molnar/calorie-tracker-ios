@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A1000001 /* CalorieTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* CalorieTrackerApp.swift */; };
 		E1000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2000001 /* Assets.xcassets */; };
+		F1000001 /* StyledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000001 /* StyledTextField.swift */; };
 		C1000001 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* Configuration.swift */; };
 		C1000002 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* APIError.swift */; };
 		C1000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* User.swift */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		A2000001 /* CalorieTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackerApp.swift; sourceTree = "<group>"; };
 		E2000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2000001 /* StyledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledTextField.swift; sourceTree = "<group>"; };
 		A2000020 /* CalorieTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000030 /* CalorieTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2000001 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				C2000025 /* ProgressRingView.swift */,
+				F2000001 /* StyledTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				C1000023 /* CalorieChartView.swift in Sources */,
 				C1000024 /* SettingsView.swift in Sources */,
 				C1000025 /* ProgressRingView.swift in Sources */,
+				F1000001 /* StyledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

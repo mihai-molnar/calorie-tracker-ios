@@ -63,12 +63,19 @@ struct ChatView: View {
                 Divider()
 
                 // Input bar
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     TextField("What did you eat?", text: Binding(
                         get: { vm.messageText },
                         set: { vm.messageText = $0 }
                     ))
-                    .textFieldStyle(.roundedBorder)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color(.systemGray4), lineWidth: 1)
+                    )
                     .focused($isInputFocused)
                     .onSubmit {
                         if vm.canSend {
@@ -80,11 +87,11 @@ struct ChatView: View {
                         Task { await vm.send() }
                     } label: {
                         Image(systemName: "arrow.up.circle.fill")
-                            .font(.title2)
+                            .font(.system(size: 34))
                     }
                     .disabled(!vm.canSend)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 12)
                 .padding(.vertical, 8)
             } else {
                 ProgressView()
