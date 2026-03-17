@@ -29,10 +29,10 @@ struct DashboardView: View {
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
 
-                                WeightChartView(entries: vm.weightEntries(from: data.history))
+                                WeightChartView(entries: vm.weightEntries(from: data.history).reversed())
 
                                 CalorieChartView(
-                                    entries: Array(data.history.prefix(30)),
+                                    entries: Array(data.history.prefix(30).reversed()),
                                     dailyTarget: data.today.dailyCalorieTarget
                                 )
                             }
