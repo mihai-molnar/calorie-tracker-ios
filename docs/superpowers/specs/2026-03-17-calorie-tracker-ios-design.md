@@ -205,7 +205,7 @@ Follows iOS system setting automatically. SwiftUI handles this by default — no
 
 ## Configuration
 
-- **API base URL:** Defined as a constant in a `Configuration.swift` file. Defaults to the production backend URL. Can be overridden via build configuration (Debug vs Release) for local development.
+- **API base URL:** Defined as a constant in `Configuration.swift`. Points to the production backend at `http://89.167.66.135/api` (nginx proxies `/api/` to the FastAPI backend on port 8000). Same URL for all build configurations.
 - **Keychain service name:** App bundle identifier used as the Keychain service key.
 - **Error response format:** Backend returns `{"detail": "..."}` for errors (FastAPI default). The `APIClient` parses this for user-facing error messages.
 
@@ -216,6 +216,14 @@ Follows iOS system setting automatically. SwiftUI handles this by default — no
 - **Rate limit (429):** Show message telling the user to wait before sending again.
 - **Invalid API key:** Surface the error from the backend, link to Settings to update.
 - **SSE connection failure:** Show error in chat, allow retry on next send.
+
+### SSE Implementation Note
+
+URLSession's `bytes.lines` skips empty lines, which is how standard SSE separates events. The `SSEParser` works around this by dispatching an event as soon as both the `event:` and `data:` fields are collected, rather than waiting for the empty line delimiter.
+
+### App Transport Security
+
+The app uses plain HTTP (no SSL). An `Info.plist` ATS exception is configured for `89.167.66.135` and `localhost` to allow insecure HTTP loads.
 
 ## File Structure
 
@@ -231,6 +239,7 @@ CalorieTracker/
     ChatMessage.swift              # Chat message model
     DashboardData.swift            # Dashboard response models
     FoodEntry.swift                # Food entry model
+    APIError.swift                 # Error types and response parsing
   Services/
     APIClient.swift                # URLSession REST wrapper (GET, POST, PATCH)
     SSEClient.swift                # URLSession SSE handling for chat
