@@ -14,36 +14,48 @@ final class SSEParser {
         return d
     }()
 
+    /// Feed a line from the SSE stream. Returns an event when one is complete.
+    /// Dispatches as soon as both event and data fields are collected,
+    /// since URLSession's bytes.lines skips empty lines.
     func feed(line: String) -> SSEEvent? {
-        if line.hasPrefix("event: ") {
-            currentEvent = String(line.dropFirst(7))
+        if line.hasPrefix("event:") {
+            currentEvent = line.dropFirst(6).trimmingCharacters(in: .whitespaces)
             return nil
         }
 
-        if line.hasPrefix("data: ") {
-            currentData = String(line.dropFirst(6))
-            return nil
+        if line.hasPrefix("data:") {
+            currentData = line.dropFirst(5).trimmingCharacters(in: .whitespaces)
+            // We have both event and data — dispatch immediately
+            return tryDispatch()
         }
 
-        // Empty line = event dispatch
-        if line.isEmpty {
-            defer {
-                currentEvent = nil
-                currentData = nil
-            }
+        // Empty line (in case it does come through)
+        if line.trimmingCharacters(in: .whitespaces).isEmpty {
+            return tryDispatch()
+        }
 
-            guard let event = currentEvent else { return nil }
+        return nil
+    }
 
-            if event == "done" {
-                return .done
-            }
+    private func tryDispatch() -> SSEEvent? {
+        guard let event = currentEvent else { return nil }
+        // Need data field to be set (even if empty string for "done")
+        guard currentData != nil else { return nil }
 
-            if event == "message", let data = currentData?.data(using: .utf8),
-               let response = try? decoder.decode(ChatSSEResponse.self, from: data) {
-                return .message(response)
-            }
+        defer {
+            currentEvent = nil
+            currentData = nil
+        }
 
-            return nil
+        if event == "done" {
+            return .done
+        }
+
+        if event == "message",
+           let dataStr = currentData,
+           let jsonData = dataStr.data(using: .utf8),
+           let response = try? decoder.decode(ChatSSEResponse.self, from: jsonData) {
+            return .message(response)
         }
 
         return nil
