@@ -8,7 +8,56 @@
 
 /* Begin PBXBuildFile section */
 		A1000001 /* CalorieTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* CalorieTrackerApp.swift */; };
-		A1000010 /* CalorieTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010 /* CalorieTrackerTests.swift */; };
+		C1000001 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* Configuration.swift */; };
+		C1000002 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* APIError.swift */; };
+		C1000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* User.swift */; };
+		C1000004 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000004 /* ChatMessage.swift */; };
+		C1000005 /* DashboardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000005 /* DashboardData.swift */; };
+		C1000006 /* FoodEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000006 /* FoodEntry.swift */; };
+		C1000007 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000007 /* Profile.swift */; };
+		C1000008 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000008 /* KeychainService.swift */; };
+		C1000009 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000009 /* APIClient.swift */; };
+		C100000A /* SSEClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000A /* SSEClient.swift */; };
+		C100000B /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000B /* AuthManager.swift */; };
+		C100000C /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000C /* AuthViewModel.swift */; };
+		C100000D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000D /* OnboardingViewModel.swift */; };
+		C100000E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000E /* ChatViewModel.swift */; };
+		C100000F /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200000F /* DashboardViewModel.swift */; };
+		C1000010 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000010 /* SettingsViewModel.swift */; };
+		C1000011 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000011 /* LoginView.swift */; };
+		C1000012 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000012 /* RegisterView.swift */; };
+		C1000013 /* GenderStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000013 /* GenderStepView.swift */; };
+		C1000014 /* AgeStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000014 /* AgeStepView.swift */; };
+		C1000015 /* HeightStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000015 /* HeightStepView.swift */; };
+		C1000016 /* WeightStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000016 /* WeightStepView.swift */; };
+		C1000017 /* ActivityStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000017 /* ActivityStepView.swift */; };
+		C1000018 /* TargetWeightStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000018 /* TargetWeightStepView.swift */; };
+		C1000019 /* ReviewStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000019 /* ReviewStepView.swift */; };
+		C100001A /* APIKeyStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001A /* APIKeyStepView.swift */; };
+		C100001B /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001B /* OnboardingContainerView.swift */; };
+		C100001C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001C /* ChatView.swift */; };
+		C100001D /* ChatBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001D /* ChatBubbleView.swift */; };
+		C100001E /* StatsBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001E /* StatsBarView.swift */; };
+		C100001F /* TypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001F /* TypingIndicatorView.swift */; };
+		C1000020 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000020 /* DashboardView.swift */; };
+		C1000021 /* SummaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000021 /* SummaryCardView.swift */; };
+		C1000022 /* WeightChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000022 /* WeightChartView.swift */; };
+		C1000023 /* CalorieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000023 /* CalorieChartView.swift */; };
+		C1000024 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000024 /* SettingsView.swift */; };
+		C1000025 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000025 /* ProgressRingView.swift */; };
+		D1000001 /* APIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000001 /* APIErrorTests.swift */; };
+		D1000002 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000002 /* UserTests.swift */; };
+		D1000003 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000003 /* ChatMessageTests.swift */; };
+		D1000004 /* DashboardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000004 /* DashboardDataTests.swift */; };
+		D1000005 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000005 /* KeychainServiceTests.swift */; };
+		D1000006 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000006 /* APIClientTests.swift */; };
+		D1000007 /* SSEClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000007 /* SSEClientTests.swift */; };
+		D1000008 /* AuthManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000008 /* AuthManagerTests.swift */; };
+		D1000009 /* AuthViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000009 /* AuthViewModelTests.swift */; };
+		D100000A /* OnboardingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200000A /* OnboardingViewModelTests.swift */; };
+		D100000B /* ChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200000B /* ChatViewModelTests.swift */; };
+		D100000C /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200000C /* DashboardViewModelTests.swift */; };
+		D100000D /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200000D /* SettingsViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,9 +72,58 @@
 
 /* Begin PBXFileReference section */
 		A2000001 /* CalorieTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackerApp.swift; sourceTree = "<group>"; };
-		A2000010 /* CalorieTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackerTests.swift; sourceTree = "<group>"; };
 		A2000020 /* CalorieTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000030 /* CalorieTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2000001 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		C2000002 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		C2000003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C2000004 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		C2000005 /* DashboardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardData.swift; sourceTree = "<group>"; };
+		C2000006 /* FoodEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodEntry.swift; sourceTree = "<group>"; };
+		C2000007 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		C2000008 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		C2000009 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		C200000A /* SSEClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEClient.swift; sourceTree = "<group>"; };
+		C200000B /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		C200000C /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		C200000D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		C200000E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		C200000F /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		C2000010 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		C2000011 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C2000012 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		C2000013 /* GenderStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderStepView.swift; sourceTree = "<group>"; };
+		C2000014 /* AgeStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeStepView.swift; sourceTree = "<group>"; };
+		C2000015 /* HeightStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightStepView.swift; sourceTree = "<group>"; };
+		C2000016 /* WeightStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightStepView.swift; sourceTree = "<group>"; };
+		C2000017 /* ActivityStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStepView.swift; sourceTree = "<group>"; };
+		C2000018 /* TargetWeightStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetWeightStepView.swift; sourceTree = "<group>"; };
+		C2000019 /* ReviewStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewStepView.swift; sourceTree = "<group>"; };
+		C200001A /* APIKeyStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyStepView.swift; sourceTree = "<group>"; };
+		C200001B /* OnboardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerView.swift; sourceTree = "<group>"; };
+		C200001C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		C200001D /* ChatBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleView.swift; sourceTree = "<group>"; };
+		C200001E /* StatsBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBarView.swift; sourceTree = "<group>"; };
+		C200001F /* TypingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorView.swift; sourceTree = "<group>"; };
+		C2000020 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		C2000021 /* SummaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCardView.swift; sourceTree = "<group>"; };
+		C2000022 /* WeightChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightChartView.swift; sourceTree = "<group>"; };
+		C2000023 /* CalorieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieChartView.swift; sourceTree = "<group>"; };
+		C2000024 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C2000025 /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
+		D2000001 /* APIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTests.swift; sourceTree = "<group>"; };
+		D2000002 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		D2000003 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
+		D2000004 /* DashboardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDataTests.swift; sourceTree = "<group>"; };
+		D2000005 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
+		D2000006 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		D2000007 /* SSEClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEClientTests.swift; sourceTree = "<group>"; };
+		D2000008 /* AuthManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerTests.swift; sourceTree = "<group>"; };
+		D2000009 /* AuthViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModelTests.swift; sourceTree = "<group>"; };
+		D200000A /* OnboardingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModelTests.swift; sourceTree = "<group>"; };
+		D200000B /* ChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelTests.swift; sourceTree = "<group>"; };
+		D200000C /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelTests.swift; sourceTree = "<group>"; };
+		D200000D /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +157,11 @@
 			isa = PBXGroup;
 			children = (
 				A2000001 /* CalorieTrackerApp.swift */,
+				C2000001 /* Configuration.swift */,
 				A6000005 /* Models */,
 				A6000006 /* Services */,
-				A6000007 /* Views */,
 				A6000008 /* ViewModels */,
+				A6000007 /* Views */,
 			);
 			path = CalorieTracker;
 			sourceTree = "<group>";
@@ -70,7 +169,6 @@
 		A6000003 /* CalorieTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				A2000010 /* CalorieTrackerTests.swift */,
 				A6000012 /* Models */,
 				A6000013 /* Services */,
 				A6000014 /* ViewModels */,
@@ -90,6 +188,12 @@
 		A6000005 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C2000002 /* APIError.swift */,
+				C2000004 /* ChatMessage.swift */,
+				C2000005 /* DashboardData.swift */,
+				C2000006 /* FoodEntry.swift */,
+				C2000007 /* Profile.swift */,
+				C2000003 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -97,6 +201,10 @@
 		A6000006 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C2000009 /* APIClient.swift */,
+				C200000B /* AuthManager.swift */,
+				C2000008 /* KeychainService.swift */,
+				C200000A /* SSEClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -105,11 +213,11 @@
 			isa = PBXGroup;
 			children = (
 				A6000020 /* Auth */,
-				A6000021 /* Onboarding */,
 				A6000022 /* Chat */,
-				A6000023 /* Dashboard */,
-				A6000024 /* Settings */,
 				A6000025 /* Components */,
+				A6000023 /* Dashboard */,
+				A6000021 /* Onboarding */,
+				A6000024 /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,6 +225,11 @@
 		A6000008 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C200000C /* AuthViewModel.swift */,
+				C200000E /* ChatViewModel.swift */,
+				C200000F /* DashboardViewModel.swift */,
+				C200000D /* OnboardingViewModel.swift */,
+				C2000010 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -124,6 +237,10 @@
 		A6000012 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D2000001 /* APIErrorTests.swift */,
+				D2000003 /* ChatMessageTests.swift */,
+				D2000004 /* DashboardDataTests.swift */,
+				D2000002 /* UserTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,6 +248,10 @@
 		A6000013 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D2000006 /* APIClientTests.swift */,
+				D2000008 /* AuthManagerTests.swift */,
+				D2000005 /* KeychainServiceTests.swift */,
+				D2000007 /* SSEClientTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -138,6 +259,11 @@
 		A6000014 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				D2000009 /* AuthViewModelTests.swift */,
+				D200000B /* ChatViewModelTests.swift */,
+				D200000C /* DashboardViewModelTests.swift */,
+				D200000A /* OnboardingViewModelTests.swift */,
+				D200000D /* SettingsViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -145,6 +271,8 @@
 		A6000020 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				C2000011 /* LoginView.swift */,
+				C2000012 /* RegisterView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -152,6 +280,15 @@
 		A6000021 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C2000017 /* ActivityStepView.swift */,
+				C2000014 /* AgeStepView.swift */,
+				C200001A /* APIKeyStepView.swift */,
+				C2000013 /* GenderStepView.swift */,
+				C2000015 /* HeightStepView.swift */,
+				C200001B /* OnboardingContainerView.swift */,
+				C2000019 /* ReviewStepView.swift */,
+				C2000018 /* TargetWeightStepView.swift */,
+				C2000016 /* WeightStepView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -159,6 +296,10 @@
 		A6000022 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				C200001D /* ChatBubbleView.swift */,
+				C200001C /* ChatView.swift */,
+				C200001E /* StatsBarView.swift */,
+				C200001F /* TypingIndicatorView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -166,6 +307,10 @@
 		A6000023 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				C2000023 /* CalorieChartView.swift */,
+				C2000020 /* DashboardView.swift */,
+				C2000021 /* SummaryCardView.swift */,
+				C2000022 /* WeightChartView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -173,6 +318,7 @@
 		A6000024 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C2000024 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -180,6 +326,7 @@
 		A6000025 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C2000025 /* ProgressRingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -283,6 +430,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000001 /* CalorieTrackerApp.swift in Sources */,
+				C1000001 /* Configuration.swift in Sources */,
+				C1000002 /* APIError.swift in Sources */,
+				C1000003 /* User.swift in Sources */,
+				C1000004 /* ChatMessage.swift in Sources */,
+				C1000005 /* DashboardData.swift in Sources */,
+				C1000006 /* FoodEntry.swift in Sources */,
+				C1000007 /* Profile.swift in Sources */,
+				C1000008 /* KeychainService.swift in Sources */,
+				C1000009 /* APIClient.swift in Sources */,
+				C100000A /* SSEClient.swift in Sources */,
+				C100000B /* AuthManager.swift in Sources */,
+				C100000C /* AuthViewModel.swift in Sources */,
+				C100000D /* OnboardingViewModel.swift in Sources */,
+				C100000E /* ChatViewModel.swift in Sources */,
+				C100000F /* DashboardViewModel.swift in Sources */,
+				C1000010 /* SettingsViewModel.swift in Sources */,
+				C1000011 /* LoginView.swift in Sources */,
+				C1000012 /* RegisterView.swift in Sources */,
+				C1000013 /* GenderStepView.swift in Sources */,
+				C1000014 /* AgeStepView.swift in Sources */,
+				C1000015 /* HeightStepView.swift in Sources */,
+				C1000016 /* WeightStepView.swift in Sources */,
+				C1000017 /* ActivityStepView.swift in Sources */,
+				C1000018 /* TargetWeightStepView.swift in Sources */,
+				C1000019 /* ReviewStepView.swift in Sources */,
+				C100001A /* APIKeyStepView.swift in Sources */,
+				C100001B /* OnboardingContainerView.swift in Sources */,
+				C100001C /* ChatView.swift in Sources */,
+				C100001D /* ChatBubbleView.swift in Sources */,
+				C100001E /* StatsBarView.swift in Sources */,
+				C100001F /* TypingIndicatorView.swift in Sources */,
+				C1000020 /* DashboardView.swift in Sources */,
+				C1000021 /* SummaryCardView.swift in Sources */,
+				C1000022 /* WeightChartView.swift in Sources */,
+				C1000023 /* CalorieChartView.swift in Sources */,
+				C1000024 /* SettingsView.swift in Sources */,
+				C1000025 /* ProgressRingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +474,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000010 /* CalorieTrackerTests.swift in Sources */,
+				D1000001 /* APIErrorTests.swift in Sources */,
+				D1000002 /* UserTests.swift in Sources */,
+				D1000003 /* ChatMessageTests.swift in Sources */,
+				D1000004 /* DashboardDataTests.swift in Sources */,
+				D1000005 /* KeychainServiceTests.swift in Sources */,
+				D1000006 /* APIClientTests.swift in Sources */,
+				D1000007 /* SSEClientTests.swift in Sources */,
+				D1000008 /* AuthManagerTests.swift in Sources */,
+				D1000009 /* AuthViewModelTests.swift in Sources */,
+				D100000A /* OnboardingViewModelTests.swift in Sources */,
+				D100000B /* ChatViewModelTests.swift in Sources */,
+				D100000C /* DashboardViewModelTests.swift in Sources */,
+				D100000D /* SettingsViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
