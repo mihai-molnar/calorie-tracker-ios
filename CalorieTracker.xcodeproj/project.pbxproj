@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1000001 /* CalorieTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* CalorieTrackerApp.swift */; };
+		E1000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2000001 /* Assets.xcassets */; };
 		C1000001 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* Configuration.swift */; };
 		C1000002 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* APIError.swift */; };
 		C1000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* User.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		A2000001 /* CalorieTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackerApp.swift; sourceTree = "<group>"; };
+		E2000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2000020 /* CalorieTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000030 /* CalorieTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2000001 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				A2000001 /* CalorieTrackerApp.swift */,
 				C2000001 /* Configuration.swift */,
+				E2000001 /* Assets.xcassets */,
 				A6000005 /* Models */,
 				A6000006 /* Services */,
 				A6000008 /* ViewModels */,
@@ -412,6 +415,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1000001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
