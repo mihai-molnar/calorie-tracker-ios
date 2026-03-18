@@ -39,6 +39,7 @@ final class ChatViewModel {
         }
 
         isLoadingHistory = true
+        errorMessage = nil
         defer { isLoadingHistory = false }
 
         do {
