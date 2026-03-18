@@ -13,7 +13,7 @@ final class AuthManager {
     var state: AuthState = .unauthenticated
     private(set) var token: String?
     private let keychainService: KeychainService
-    private var isRefreshing = false
+    private var refreshTask: Task<String?, Never>?
 
     init(keychainService: KeychainService = KeychainService()) {
         self.keychainService = keychainService
@@ -45,25 +45,32 @@ final class AuthManager {
 
     /// Attempts to silently re-login using stored credentials.
     /// Returns the new token on success, nil on failure.
+    /// Concurrent callers coalesce onto the same in-flight refresh.
     func refreshToken() async -> String? {
-        guard !isRefreshing,
-              let email = keychainService.load(key: Configuration.keychainEmailKey),
+        if let existing = refreshTask {
+            return await existing.value
+        }
+
+        guard let email = keychainService.load(key: Configuration.keychainEmailKey),
               let password = keychainService.load(key: Configuration.keychainPasswordKey) else {
             return nil
         }
 
-        isRefreshing = true
-        defer { isRefreshing = false }
-
-        do {
-            let request = AuthRequest(email: email, password: password)
-            let response: AuthResponse = try await APIClient().post(path: "/auth/login", body: request)
-            self.token = response.accessToken
-            try? keychainService.save(key: Configuration.keychainTokenKey, value: response.accessToken)
-            return response.accessToken
-        } catch {
-            return nil
+        let task = Task<String?, Never> {
+            do {
+                let request = AuthRequest(email: email, password: password)
+                let response: AuthResponse = try await APIClient().post(path: "/auth/login", body: request)
+                self.token = response.accessToken
+                try? keychainService.save(key: Configuration.keychainTokenKey, value: response.accessToken)
+                return response.accessToken
+            } catch {
+                return nil
+            }
         }
+        refreshTask = task
+        let result = await task.value
+        refreshTask = nil
+        return result
     }
 
     func logout() {

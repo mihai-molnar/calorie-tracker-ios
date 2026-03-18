@@ -86,7 +86,7 @@ Standard email/password auth through the backend's Supabase wrapper endpoints. T
 
 ### Token Expiry & Silent Re-login
 
-Supabase JWTs expire (typically 1 hour). On login/register, the user's email and password are stored in Keychain alongside the JWT. When a 401 is received, `APIClient` automatically attempts a silent re-login using the stored credentials and retries the request. If re-login fails (e.g. password changed), the user is redirected to the login screen. Credentials are cleared on logout.
+Supabase JWTs expire (typically 1 hour). On login/register, the user's email and password are stored in Keychain alongside the JWT. When a 401 is received, `APIClient` automatically attempts a silent re-login using the stored credentials and retries the request. Concurrent refresh attempts (e.g. multiple views resuming from background simultaneously) coalesce onto a single in-flight refresh `Task` to avoid race conditions. If re-login fails (e.g. password changed), the user is redirected to the login screen. Credentials are cleared on logout.
 
 ### Onboarding Status Check
 
@@ -214,7 +214,7 @@ Follows iOS system setting automatically. SwiftUI handles this by default — no
 ## Error Handling
 
 - **Network errors:** Show inline alert or banner. Chat input stays enabled so the user can retry.
-- **401 Unauthorized:** Clear Keychain token, redirect to login screen.
+- **401 Unauthorized:** Attempt silent token refresh; only redirect to login if refresh fails.
 - **Rate limit (429):** Show message telling the user to wait before sending again.
 - **Invalid API key:** Surface the error from the backend, link to Settings to update.
 - **SSE connection failure:** Show error in chat, allow retry on next send.
