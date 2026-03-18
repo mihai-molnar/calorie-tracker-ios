@@ -84,9 +84,9 @@ Standard email/password auth through the backend's Supabase wrapper endpoints. T
 - Cleared on logout or app uninstall
 - Keychain accessed via a thin wrapper around the Security framework
 
-### Token Expiry
+### Token Expiry & Silent Re-login
 
-Supabase JWTs expire (typically 1 hour). The iOS app does not implement token refresh — when a 401 is received, the user is redirected to the login screen. Acceptable for a solo-user app. Token refresh can be added later if needed.
+Supabase JWTs expire (typically 1 hour). On login/register, the user's email and password are stored in Keychain alongside the JWT. When a 401 is received, `APIClient` automatically attempts a silent re-login using the stored credentials and retries the request. If re-login fails (e.g. password changed), the user is redirected to the login screen. Credentials are cleared on logout.
 
 ### Onboarding Status Check
 
@@ -166,10 +166,11 @@ On completion, calls `POST /onboarding` (including timezone) and transitions to 
 
 **Data flow:**
 1. On appear: `GET /chat/history` to load today's messages + stats. Cache `daily_calorie_target` from this response for use in stats bar updates.
-2. User sends message: `POST /chat` (SSE)
-3. Show typing indicator (expect 5-15s latency for OpenAI response)
-4. On `message` event: hide indicator, append assistant message, update stats bar using cached `daily_calorie_target`
-5. On `done` event: mark request complete
+2. On foreground resume (`scenePhase` → `.active`): re-fetch chat history to ensure data is fresh (e.g. after midnight rollover).
+3. User sends message: `POST /chat` (SSE)
+4. Show typing indicator (expect 5-15s latency for OpenAI response)
+5. On `message` event: hide indicator, append assistant message, update stats bar using cached `daily_calorie_target`
+6. On `done` event: mark request complete
 
 ### Dashboard Tab
 
@@ -185,13 +186,14 @@ On completion, calls `POST /onboarding` (including timezone) and transitions to 
 - Swift Charts line chart
 - Last 30 days of weight data
 - Points for days with weigh-ins, connected by lines
+- Y-axis auto-scaled to data range with padding (not starting from zero)
 
 **Calorie bar chart:**
 - Swift Charts bar chart
 - Last 30 days of daily calorie totals
 - Horizontal reference line at daily calorie target
 
-Charts and cards in a vertical scrollable layout.
+Charts and cards in a vertical scrollable layout. Dashboard data is re-fetched when the app returns to the foreground (`scenePhase` → `.active`).
 
 ### Settings Tab
 
@@ -206,7 +208,7 @@ Follows iOS system setting automatically. SwiftUI handles this by default — no
 ## Configuration
 
 - **API base URL:** Defined as a constant in `Configuration.swift`. Points to the production backend at `http://89.167.66.135/api` (nginx proxies `/api/` to the FastAPI backend on port 8000). Same URL for all build configurations.
-- **Keychain service name:** App bundle identifier used as the Keychain service key.
+- **Keychain service name:** App bundle identifier used as the Keychain service key. Stores auth token, email, and password for silent token refresh.
 - **Error response format:** Backend returns `{"detail": "..."}` for errors (FastAPI default). The `APIClient` parses this for user-facing error messages.
 
 ## Error Handling
@@ -294,17 +296,18 @@ Zero third-party dependencies. All Apple frameworks:
 
 **In scope:**
 - Email/password auth
+- Silent token refresh via stored credentials on 401
 - Onboarding wizard (one field per screen)
 - Conversational chat with LLM (full response display, no word-by-word streaming)
-- Dashboard with weight + calorie charts
+- Dashboard with weight + calorie charts (auto-scaled Y-axis)
 - Settings (API key, logout)
-- Keychain token storage
+- Keychain token storage (token, email, password)
 - Dark mode (system-following)
 - Tab bar navigation (Chat, Dashboard, Settings)
+- Foreground resume data refresh (chat + dashboard)
 
 **Out of scope (future):**
 - Sign in with Apple (requires backend `/auth/apple` endpoint)
-- Token refresh (re-login on expiry for now)
 - In-app dark mode toggle
 - Push notifications
 - Offline support / local caching
