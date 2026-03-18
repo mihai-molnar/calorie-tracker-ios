@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ChatView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel: ChatViewModel?
     @FocusState private var isInputFocused: Bool
 
@@ -101,6 +102,11 @@ struct ChatView: View {
             let vm = ChatViewModel(authManager: authManager)
             self.viewModel = vm
             await vm.loadHistory()
+        }
+        .onChange(of: scenePhase) {
+            if scenePhase == .active, let vm = viewModel {
+                Task { await vm.loadHistory() }
+            }
         }
     }
 }

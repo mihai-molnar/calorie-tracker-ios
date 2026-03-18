@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel: DashboardViewModel?
 
     var body: some View {
@@ -59,6 +60,11 @@ struct DashboardView: View {
             let vm = DashboardViewModel(authManager: authManager)
             self.viewModel = vm
             await vm.loadDashboard()
+        }
+        .onChange(of: scenePhase) {
+            if scenePhase == .active, let vm = viewModel {
+                Task { await vm.loadDashboard() }
+            }
         }
     }
 }
