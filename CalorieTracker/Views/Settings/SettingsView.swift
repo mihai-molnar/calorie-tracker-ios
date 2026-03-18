@@ -9,38 +9,6 @@ struct SettingsView: View {
             Group {
                 if let vm = viewModel {
                     Form {
-                        Section("OpenAI API Key") {
-                            SecureField("New API key", text: Binding(
-                                get: { vm.apiKey },
-                                set: { vm.apiKey = $0 }
-                            ))
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
-
-                            Button {
-                                Task { await vm.saveApiKey() }
-                            } label: {
-                                if vm.isLoading {
-                                    ProgressView()
-                                } else {
-                                    Text("Update Key")
-                                }
-                            }
-                            .disabled(!vm.canSaveApiKey)
-
-                            if let success = vm.successMessage {
-                                Text(success)
-                                    .font(.caption)
-                                    .foregroundStyle(.green)
-                            }
-
-                            if let error = vm.errorMessage {
-                                Text(error)
-                                    .font(.caption)
-                                    .foregroundStyle(.red)
-                            }
-                        }
-
                         if let target = vm.dailyCalorieTarget {
                             Section("Daily Calorie Target") {
                                 Text("\(target) kcal")
