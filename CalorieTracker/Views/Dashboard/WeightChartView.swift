@@ -4,6 +4,15 @@ import Charts
 struct WeightChartView: View {
     let entries: [DailyLogEntry]
 
+    private var yDomain: ClosedRange<Double> {
+        let weights = entries.compactMap(\.weightKg)
+        guard let min = weights.min(), let max = weights.max() else {
+            return 0...100
+        }
+        let padding = Swift.max((max - min) * 0.5, 1.0)
+        return (min - padding)...(max + padding)
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Weight Trend")
@@ -32,6 +41,7 @@ struct WeightChartView: View {
                     }
                 }
                 .frame(height: 200)
+                .chartYScale(domain: yDomain)
                 .chartYAxis {
                     AxisMarks(position: .leading)
                 }
