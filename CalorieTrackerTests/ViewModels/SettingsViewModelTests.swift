@@ -14,6 +14,8 @@ final class SettingsViewModelTests: XCTestCase {
 
     func testInitialState() {
         XCTAssertFalse(viewModel.isLoading)
+        XCTAssertNil(viewModel.errorMessage)
+        XCTAssertNil(viewModel.dailyCalorieTarget)
     }
 
     func testLogout() {
