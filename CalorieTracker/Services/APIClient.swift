@@ -86,6 +86,9 @@ final class APIClient {
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
+            if let detail = try? decoder.decode(APIErrorResponse.self, from: data) {
+                throw APIError.serverError(message: detail.detail)
+            }
             throw APIError.decodingError(error)
         }
     }
