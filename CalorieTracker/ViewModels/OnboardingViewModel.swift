@@ -4,7 +4,7 @@ import Observation
 @Observable
 final class OnboardingViewModel {
     var currentStep = 0
-    let totalSteps = 8
+    let totalSteps = 7
 
     // Step data
     var gender: Gender = .male
@@ -14,7 +14,6 @@ final class OnboardingViewModel {
     var activityLevel: ActivityLevel = .moderate
     var targetWeightKg: Double = 75
     var calorieTargetOverride: Int?
-    var apiKey: String = ""
 
     var isLoading = false
     var errorMessage: String?
@@ -40,7 +39,6 @@ final class OnboardingViewModel {
         case 4: return true // activity always has a selection
         case 5: return targetWeightKg > 20 && targetWeightKg < weightKg
         case 6: return true // review step
-        case 7: return !apiKey.trimmingCharacters(in: .whitespaces).isEmpty
         default: return false
         }
     }
@@ -64,8 +62,7 @@ final class OnboardingViewModel {
             activityLevel: activityLevel.rawValue,
             targetWeightKg: targetWeightKg,
             dailyCalorieTarget: calorieTargetOverride,
-            timezone: TimeZone.current.identifier,
-            openaiApiKey: apiKey
+            timezone: TimeZone.current.identifier
         )
     }
 
