@@ -9,7 +9,6 @@ struct OnboardingRequest: Codable {
     let targetWeightKg: Double
     let dailyCalorieTarget: Int?
     let timezone: String
-    let openaiApiKey: String
 
     enum CodingKeys: String, CodingKey {
         case age, gender, timezone
@@ -18,7 +17,6 @@ struct OnboardingRequest: Codable {
         case activityLevel = "activity_level"
         case targetWeightKg = "target_weight_kg"
         case dailyCalorieTarget = "daily_calorie_target"
-        case openaiApiKey = "openai_api_key"
     }
 }
 
