@@ -53,7 +53,7 @@ All endpoints are on the existing FastAPI backend. The iOS app sends `Authorizat
 - `POST /auth/logout` — no body → `{ message }`
 
 ### Onboarding
-- `POST /onboarding` — profile data + OpenAI API key → `{ daily_calorie_target, message }`
+- `POST /onboarding` — profile data → `{ daily_calorie_target, message }`
 
 ### Chat
 - `GET /chat/history` — → `{ messages, total_calories, weight_kg, daily_calorie_target }`
@@ -67,9 +67,6 @@ All endpoints are on the existing FastAPI backend. The iOS app sends `Authorizat
 
 ### Food Entries
 - `PATCH /food-entries/{id}` — `{ estimated_calories }` → `{ message, new_total_calories }`
-
-### Settings
-- `PATCH /settings/api-key` — `{ openai_api_key }` → `{ message }`
 
 ## Authentication
 
@@ -102,7 +99,7 @@ App Root (AuthManager decides)
 │   ├── Login
 │   └── Register
 ├── Onboarding Flow (authenticated, not onboarded)
-│   └── Onboarding Wizard (8 steps)
+│   └── Onboarding Wizard (7 steps)
 └── Main App (authenticated + onboarded)
     └── TabView
         ├── Chat (tab 1, default)
@@ -137,7 +134,6 @@ One screen per field with a progress bar at the top. Back/Next navigation. Each 
 | 5 | Activity level | List selection (5 options with descriptions) |
 | 6 | Target weight (kg) | Decimal text input (validated < current weight) |
 | 7 | Review | Shows calculated daily calorie target, option to override |
-| 8 | OpenAI API key | Text field with paste button |
 
 **Timezone:** Auto-detected from the device via `TimeZone.current.identifier` and sent silently with the onboarding payload. Not a wizard step.
 
@@ -197,9 +193,10 @@ Charts and cards in a vertical scrollable layout. Dashboard data is re-fetched w
 
 ### Settings Tab
 
-- **OpenAI API key:** masked display with update option
 - **Daily calorie target:** display current value (read-only, set during onboarding)
 - **Logout button:** clears Keychain token, returns to login screen
+
+> **Note:** The OpenAI API key is managed server-side. Users do not provide or manage an API key.
 
 ## Dark Mode
 
@@ -216,7 +213,6 @@ Follows iOS system setting automatically. SwiftUI handles this by default — no
 - **Network errors:** Show inline alert or banner. Chat input stays enabled so the user can retry.
 - **401 Unauthorized:** Attempt silent token refresh; only redirect to login if refresh fails.
 - **Rate limit (429):** Show message telling the user to wait before sending again.
-- **Invalid API key:** Surface the error from the backend, link to Settings to update.
 - **SSE connection failure:** Show error in chat, allow retry on next send.
 
 ### SSE Implementation Note
@@ -260,7 +256,6 @@ CalorieTracker/
       ActivityStepView.swift
       TargetWeightStepView.swift
       ReviewStepView.swift
-      APIKeyStepView.swift
     Chat/
       ChatView.swift               # Main chat screen
       ChatBubbleView.swift         # Single message bubble
@@ -280,7 +275,7 @@ CalorieTracker/
     OnboardingViewModel.swift      # Onboarding step state + submission
     ChatViewModel.swift            # Messages, sending, SSE handling
     DashboardViewModel.swift       # Dashboard data fetching
-    SettingsViewModel.swift        # API key update, logout
+    SettingsViewModel.swift        # Logout
 ```
 
 ## Dependencies
@@ -300,7 +295,7 @@ Zero third-party dependencies. All Apple frameworks:
 - Onboarding wizard (one field per screen)
 - Conversational chat with LLM (full response display, no word-by-word streaming)
 - Dashboard with weight + calorie charts (auto-scaled Y-axis)
-- Settings (API key, logout)
+- Settings (logout)
 - Keychain token storage (token, email, password)
 - Dark mode (system-following)
 - Tab bar navigation (Chat, Dashboard, Settings)
