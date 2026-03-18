@@ -35,7 +35,6 @@
 		C1000017 /* ActivityStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000017 /* ActivityStepView.swift */; };
 		C1000018 /* TargetWeightStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000018 /* TargetWeightStepView.swift */; };
 		C1000019 /* ReviewStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000019 /* ReviewStepView.swift */; };
-		C100001A /* APIKeyStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001A /* APIKeyStepView.swift */; };
 		C100001B /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001B /* OnboardingContainerView.swift */; };
 		C100001C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001C /* ChatView.swift */; };
 		C100001D /* ChatBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200001D /* ChatBubbleView.swift */; };
@@ -103,7 +102,6 @@
 		C2000017 /* ActivityStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStepView.swift; sourceTree = "<group>"; };
 		C2000018 /* TargetWeightStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetWeightStepView.swift; sourceTree = "<group>"; };
 		C2000019 /* ReviewStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewStepView.swift; sourceTree = "<group>"; };
-		C200001A /* APIKeyStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyStepView.swift; sourceTree = "<group>"; };
 		C200001B /* OnboardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerView.swift; sourceTree = "<group>"; };
 		C200001C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C200001D /* ChatBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleView.swift; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 			children = (
 				C2000017 /* ActivityStepView.swift */,
 				C2000014 /* AgeStepView.swift */,
-				C200001A /* APIKeyStepView.swift */,
 				C2000013 /* GenderStepView.swift */,
 				C2000015 /* HeightStepView.swift */,
 				C200001B /* OnboardingContainerView.swift */,
@@ -462,7 +459,6 @@
 				C1000017 /* ActivityStepView.swift in Sources */,
 				C1000018 /* TargetWeightStepView.swift in Sources */,
 				C1000019 /* ReviewStepView.swift in Sources */,
-				C100001A /* APIKeyStepView.swift in Sources */,
 				C100001B /* OnboardingContainerView.swift in Sources */,
 				C100001C /* ChatView.swift in Sources */,
 				C100001D /* ChatBubbleView.swift in Sources */,

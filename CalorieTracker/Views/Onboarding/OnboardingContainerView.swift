@@ -31,7 +31,6 @@ struct OnboardingContainerView: View {
                 case 4: ActivityStepView(viewModel: viewModel)
                 case 5: TargetWeightStepView(viewModel: viewModel)
                 case 6: ReviewStepView(viewModel: viewModel)
-                case 7: APIKeyStepView(viewModel: viewModel)
                 default: EmptyView()
                 }
             }
