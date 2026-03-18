@@ -13,7 +13,7 @@ final class OnboardingViewModelTests: XCTestCase {
 
     func testInitialStep() {
         XCTAssertEqual(viewModel.currentStep, 0)
-        XCTAssertEqual(viewModel.totalSteps, 8)
+        XCTAssertEqual(viewModel.totalSteps, 7)
     }
 
     func testNextStep() {
@@ -61,7 +61,7 @@ final class OnboardingViewModelTests: XCTestCase {
 
     func testProgressFraction() {
         viewModel.currentStep = 4
-        XCTAssertEqual(viewModel.progress, 4.0 / 8.0, accuracy: 0.01)
+        XCTAssertEqual(viewModel.progress, 4.0 / 7.0, accuracy: 0.01)
     }
 
     func testBuildOnboardingRequest() {
@@ -71,7 +71,6 @@ final class OnboardingViewModelTests: XCTestCase {
         viewModel.weightKg = 90
         viewModel.activityLevel = .moderate
         viewModel.targetWeightKg = 80
-        viewModel.apiKey = "sk-test"
 
         let request = viewModel.buildRequest()
         XCTAssertEqual(request.gender, "male")
@@ -80,7 +79,6 @@ final class OnboardingViewModelTests: XCTestCase {
         XCTAssertEqual(request.weightKg, 90)
         XCTAssertEqual(request.activityLevel, "moderate")
         XCTAssertEqual(request.targetWeightKg, 80)
-        XCTAssertEqual(request.openaiApiKey, "sk-test")
         XCTAssertFalse(request.timezone.isEmpty)
     }
 }

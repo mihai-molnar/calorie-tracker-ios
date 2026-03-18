@@ -13,15 +13,7 @@ final class SettingsViewModelTests: XCTestCase {
     }
 
     func testInitialState() {
-        XCTAssertEqual(viewModel.apiKey, "")
         XCTAssertFalse(viewModel.isLoading)
-        XCTAssertNil(viewModel.successMessage)
-    }
-
-    func testCanSaveApiKey() {
-        XCTAssertFalse(viewModel.canSaveApiKey)
-        viewModel.apiKey = "sk-new-key"
-        XCTAssertTrue(viewModel.canSaveApiKey)
     }
 
     func testLogout() {
