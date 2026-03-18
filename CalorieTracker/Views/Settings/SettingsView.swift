@@ -9,8 +9,10 @@ struct SettingsView: View {
             Group {
                 if let vm = viewModel {
                     Form {
-                        if let target = vm.dailyCalorieTarget {
-                            Section("Daily Calorie Target") {
+                        Section("Daily Calorie Target") {
+                            if vm.isLoading {
+                                ShimmerView(width: 80, height: 16)
+                            } else if let target = vm.dailyCalorieTarget {
                                 Text("\(target) kcal")
                             }
                         }

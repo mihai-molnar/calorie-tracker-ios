@@ -46,6 +46,7 @@
 		C1000023 /* CalorieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000023 /* CalorieChartView.swift */; };
 		C1000024 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000024 /* SettingsView.swift */; };
 		C1000025 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000025 /* ProgressRingView.swift */; };
+		C1000026 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000026 /* ShimmerView.swift */; };
 		D1000001 /* APIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000001 /* APIErrorTests.swift */; };
 		D1000002 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000002 /* UserTests.swift */; };
 		D1000003 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000003 /* ChatMessageTests.swift */; };
@@ -113,6 +114,7 @@
 		C2000023 /* CalorieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieChartView.swift; sourceTree = "<group>"; };
 		C2000024 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C2000025 /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
+		C2000026 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		D2000001 /* APIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTests.swift; sourceTree = "<group>"; };
 		D2000002 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D2000003 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				C2000025 /* ProgressRingView.swift */,
+				C2000026 /* ShimmerView.swift */,
 				F2000001 /* StyledTextField.swift */,
 			);
 			path = Components;
@@ -470,6 +473,7 @@
 				C1000023 /* CalorieChartView.swift in Sources */,
 				C1000024 /* SettingsView.swift in Sources */,
 				C1000025 /* ProgressRingView.swift in Sources */,
+				C1000026 /* ShimmerView.swift in Sources */,
 				F1000001 /* StyledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
