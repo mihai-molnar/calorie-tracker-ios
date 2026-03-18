@@ -31,7 +31,7 @@ final class AuthViewModel {
         do {
             let request = AuthRequest(email: email, password: password)
             let response: AuthResponse = try await apiClient.post(path: "/auth/login", body: request)
-            authManager.handleLoginSuccess(token: response.accessToken)
+            authManager.handleLoginSuccess(token: response.accessToken, email: email, password: password)
         } catch let error as APIError {
             errorMessage = error.localizedDescription
         } catch {
@@ -48,7 +48,7 @@ final class AuthViewModel {
         do {
             let request = AuthRequest(email: email, password: password)
             let response: AuthResponse = try await apiClient.post(path: "/auth/register", body: request)
-            authManager.handleLoginSuccess(token: response.accessToken)
+            authManager.handleLoginSuccess(token: response.accessToken, email: email, password: password)
         } catch let error as APIError {
             errorMessage = error.localizedDescription
         } catch {

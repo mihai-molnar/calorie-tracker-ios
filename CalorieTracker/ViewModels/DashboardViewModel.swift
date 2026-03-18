@@ -10,8 +10,8 @@ final class DashboardViewModel {
     private let apiClient: APIClient
     private let authManager: AuthManager
 
-    init(apiClient: APIClient = APIClient(), authManager: AuthManager) {
-        self.apiClient = apiClient
+    init(apiClient: APIClient? = nil, authManager: AuthManager) {
+        self.apiClient = apiClient ?? APIClient(authManager: authManager)
         self.authManager = authManager
     }
 

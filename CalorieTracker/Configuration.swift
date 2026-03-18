@@ -5,4 +5,6 @@ enum Configuration {
 
     static let keychainService = Bundle.main.bundleIdentifier ?? "com.calorietracker"
     static let keychainTokenKey = "auth_token"
+    static let keychainEmailKey = "auth_email"
+    static let keychainPasswordKey = "auth_password"
 }

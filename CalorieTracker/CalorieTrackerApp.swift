@@ -56,7 +56,7 @@ struct CalorieTrackerApp: App {
             return
         }
         do {
-            let _: DashboardResponse = try await APIClient().get(path: "/dashboard", token: token)
+            let _: DashboardResponse = try await APIClient(authManager: authManager).get(path: "/dashboard", token: token)
             authManager.markOnboarded()
         } catch let error as APIError where error.isUnauthorized {
             authManager.handleUnauthorized()

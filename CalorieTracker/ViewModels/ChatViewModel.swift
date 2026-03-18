@@ -16,8 +16,8 @@ final class ChatViewModel {
     private let sseClient: SSEClient
     private let authManager: AuthManager
 
-    init(apiClient: APIClient = APIClient(), sseClient: SSEClient = SSEClient(), authManager: AuthManager) {
-        self.apiClient = apiClient
+    init(apiClient: APIClient? = nil, sseClient: SSEClient = SSEClient(), authManager: AuthManager) {
+        self.apiClient = apiClient ?? APIClient(authManager: authManager)
         self.sseClient = sseClient
         self.authManager = authManager
     }
@@ -68,25 +68,39 @@ final class ChatViewModel {
         messages.append(userMessage)
 
         do {
-            for try await event in sseClient.sendMessage(text, token: token) {
-                switch event {
-                case .message(let response):
-                    let assistantMessage = ChatMessage(role: "assistant", content: response.text)
-                    messages.append(assistantMessage)
-                    totalCalories = response.totalCalories
-                    if let weight = response.weightKg {
-                        weightKg = weight
-                    }
-                case .done:
-                    break
-                }
-            }
+            try await streamChat(text, token: token)
         } catch let error as APIError where error.isUnauthorized {
-            authManager.handleUnauthorized()
+            // Try silent re-login and retry once
+            if let newToken = await authManager.refreshToken() {
+                do {
+                    try await streamChat(text, token: newToken)
+                } catch {
+                    authManager.handleUnauthorized()
+                }
+            } else {
+                authManager.handleUnauthorized()
+            }
         } catch {
             errorMessage = "Failed to send message. Try again."
         }
 
         isSending = false
+    }
+
+    @MainActor
+    private func streamChat(_ text: String, token: String) async throws {
+        for try await event in sseClient.sendMessage(text, token: token) {
+            switch event {
+            case .message(let response):
+                let assistantMessage = ChatMessage(role: "assistant", content: response.text)
+                messages.append(assistantMessage)
+                totalCalories = response.totalCalories
+                if let weight = response.weightKg {
+                    weightKg = weight
+                }
+            case .done:
+                break
+            }
+        }
     }
 }
