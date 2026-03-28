@@ -39,4 +39,10 @@ struct ChatSSEResponse: Codable {
 
 struct ChatRequest: Codable {
     let message: String
+    let image: String?
+
+    init(message: String, image: String? = nil) {
+        self.message = message
+        self.image = image
+    }
 }

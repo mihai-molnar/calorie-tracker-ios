@@ -71,7 +71,7 @@ final class SSEClient {
         self.session = session
     }
 
-    func sendMessage(_ message: String, token: String) -> AsyncThrowingStream<SSEEvent, Error> {
+    func sendMessage(_ message: String, image: String? = nil, token: String) -> AsyncThrowingStream<SSEEvent, Error> {
         AsyncThrowingStream { continuation in
             Task {
                 do {
@@ -79,7 +79,7 @@ final class SSEClient {
                     request.httpMethod = "POST"
                     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                     request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                    request.httpBody = try JSONEncoder().encode(ChatRequest(message: message))
+                    request.httpBody = try JSONEncoder().encode(ChatRequest(message: message, image: image))
 
                     let (bytes, response) = try await session.bytes(for: request)
 
