@@ -5,6 +5,9 @@ struct StatsBarView: View {
     let dailyCalorieTarget: Int
     let weightKg: Double?
     let progress: Double
+    @Binding var dataApplied: Bool
+
+    @State private var popScale: CGFloat = 1.0
 
     var body: some View {
         HStack(spacing: 16) {
@@ -18,9 +21,11 @@ struct StatsBarView: View {
                 Text("\(totalCalories) / \(dailyCalorieTarget) kcal")
                     .font(.subheadline)
                     .fontWeight(.semibold)
+                    .scaleEffect(popScale)
                 Text("\(max(0, dailyCalorieTarget - totalCalories)) remaining")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .scaleEffect(popScale)
             }
 
             Spacer()
@@ -30,6 +35,7 @@ struct StatsBarView: View {
                     Text(weight.formatted(.number.precision(.fractionLength(1))))
                         .font(.subheadline)
                         .fontWeight(.semibold)
+                        .scaleEffect(popScale)
                     Text("kg")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -39,5 +45,18 @@ struct StatsBarView: View {
         .padding(.horizontal)
         .padding(.vertical, 10)
         .background(Color(.systemBackground))
+        .onChange(of: dataApplied) {
+            if dataApplied {
+                withAnimation(.spring(response: 0.25, dampingFraction: 0.4)) {
+                    popScale = 1.3
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
+                        popScale = 1.0
+                    }
+                    dataApplied = false
+                }
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ final class ChatViewModel {
     var totalCalories = 0
     var dailyCalorieTarget = 0
     var weightKg: Double?
+    var dataApplied = false
 
     private let apiClient: APIClient
     private let sseClient: SSEClient
@@ -95,9 +96,13 @@ final class ChatViewModel {
             case .message(let response):
                 let assistantMessage = ChatMessage(role: "assistant", content: response.text)
                 messages.append(assistantMessage)
+                let caloriesChanged = totalCalories != response.totalCalories
                 totalCalories = response.totalCalories
                 if let weight = response.weightKg {
                     weightKg = weight
+                }
+                if caloriesChanged {
+                    dataApplied = true
                 }
             case .done:
                 break

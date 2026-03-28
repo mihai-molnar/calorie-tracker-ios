@@ -14,7 +14,11 @@ struct ChatView: View {
                     totalCalories: vm.totalCalories,
                     dailyCalorieTarget: vm.dailyCalorieTarget,
                     weightKg: vm.weightKg,
-                    progress: vm.calorieProgress
+                    progress: vm.calorieProgress,
+                    dataApplied: Binding(
+                        get: { vm.dataApplied },
+                        set: { vm.dataApplied = $0 }
+                    )
                 )
                 Divider()
 
