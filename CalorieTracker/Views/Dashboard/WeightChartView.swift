@@ -41,77 +41,95 @@ struct WeightChartView: View {
     }
 
     private var scrollableChart: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 0) {
-                    if isLoadingMore {
-                        ProgressView()
-                            .frame(width: 40)
-                    }
+        HStack(spacing: 0) {
+            // Fixed Y-axis
+            Chart(entries) { entry in
+                if let weight = entry.weightKg, let date = entry.parsedDate {
+                    LineMark(
+                        x: .value("Date", date, unit: .day),
+                        y: .value("Weight", weight)
+                    )
+                    .opacity(0)
+                }
+            }
+            .chartXAxis(.hidden)
+            .chartYScale(domain: yDomain)
+            .chartYAxis {
+                AxisMarks(position: .leading)
+            }
+            .frame(width: 50, height: 200)
 
-                    Chart(entries) { entry in
-                        if let weight = entry.weightKg, let date = entry.parsedDate {
-                            LineMark(
-                                x: .value("Date", date, unit: .day),
-                                y: .value("Weight", weight)
-                            )
-                            .interpolationMethod(.catmullRom)
-
-                            PointMark(
-                                x: .value("Date", date, unit: .day),
-                                y: .value("Weight", weight)
-                            )
-                            .foregroundStyle(.blue)
+            // Scrollable chart
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        if isLoadingMore {
+                            ProgressView()
+                                .frame(width: 40)
                         }
-                    }
-                    .chartXAxis {
-                        AxisMarks(values: .stride(by: .day, count: 3)) { value in
-                            if let date = value.as(Date.self) {
-                                let day = Calendar.current.component(.day, from: date)
-                                if day == 1 {
-                                    AxisValueLabel {
-                                        VStack(spacing: 2) {
-                                            Text(date, format: .dateTime.month(.abbreviated))
-                                                .font(.caption2)
-                                                .fontWeight(.bold)
+
+                        Chart(entries) { entry in
+                            if let weight = entry.weightKg, let date = entry.parsedDate {
+                                LineMark(
+                                    x: .value("Date", date, unit: .day),
+                                    y: .value("Weight", weight)
+                                )
+                                .interpolationMethod(.catmullRom)
+
+                                PointMark(
+                                    x: .value("Date", date, unit: .day),
+                                    y: .value("Weight", weight)
+                                )
+                                .foregroundStyle(.blue)
+                            }
+                        }
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: .day, count: 3)) { value in
+                                if let date = value.as(Date.self) {
+                                    let day = Calendar.current.component(.day, from: date)
+                                    if day == 1 {
+                                        AxisValueLabel {
+                                            VStack(spacing: 2) {
+                                                Text(date, format: .dateTime.month(.abbreviated))
+                                                    .font(.caption2)
+                                                    .fontWeight(.bold)
+                                                Text("\(day)")
+                                                    .font(.caption2)
+                                            }
+                                        }
+                                    } else {
+                                        AxisValueLabel {
                                             Text("\(day)")
                                                 .font(.caption2)
                                         }
                                     }
-                                } else {
-                                    AxisValueLabel {
-                                        Text("\(day)")
-                                            .font(.caption2)
-                                    }
+                                    AxisGridLine()
+                                    AxisTick()
                                 }
-                                AxisGridLine()
-                                AxisTick()
                             }
                         }
+                        .chartYScale(domain: yDomain)
+                        .chartYAxis(.hidden)
+                        .frame(width: max(chartWidth, 300), height: 200)
+                        .id("weightChart")
                     }
-                    .chartYScale(domain: yDomain)
-                    .chartYAxis {
-                        AxisMarks(position: .leading)
-                    }
-                    .frame(width: max(chartWidth, 300), height: 200)
-                    .id("weightChart")
-                }
-                .background(
-                    GeometryReader { geo in
-                        Color.clear
-                            .onChange(of: geo.frame(in: .named("weightScroll")).minX) { _, newValue in
-                                if newValue > -100 {
-                                    onLoadMore()
+                    .background(
+                        GeometryReader { geo in
+                            Color.clear
+                                .onChange(of: geo.frame(in: .named("weightScroll")).minX) { _, newValue in
+                                    if newValue > -100 {
+                                        onLoadMore()
+                                    }
                                 }
-                            }
-                    }
-                )
-            }
-            .coordinateSpace(name: "weightScroll")
-            .frame(height: 200)
-            .onAppear {
-                proxy.scrollTo("weightChart", anchor: .trailing)
+                        }
+                    )
+                }
+                .coordinateSpace(name: "weightScroll")
+                .onAppear {
+                    proxy.scrollTo("weightChart", anchor: .trailing)
+                }
             }
         }
+        .frame(height: 200)
     }
 }

@@ -33,81 +33,102 @@ struct CalorieChartView: View {
     }
 
     private var scrollableChart: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 0) {
-                    if isLoadingMore {
-                        ProgressView()
-                            .frame(width: 40)
+        HStack(spacing: 0) {
+            // Fixed Y-axis
+            Chart {
+                ForEach(entries) { entry in
+                    if let date = entry.parsedDate {
+                        BarMark(
+                            x: .value("Date", date, unit: .day),
+                            y: .value("Calories", entry.totalCalories)
+                        )
+                        .opacity(0)
                     }
+                }
+                RuleMark(y: .value("Target", dailyTarget))
+                    .opacity(0)
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis {
+                AxisMarks(position: .leading)
+            }
+            .frame(width: 50, height: 200)
 
-                    Chart {
-                        ForEach(entries) { entry in
-                            if let date = entry.parsedDate {
-                                BarMark(
-                                    x: .value("Date", date, unit: .day),
-                                    y: .value("Calories", entry.totalCalories)
-                                )
-                                .foregroundStyle(entry.totalCalories > dailyTarget ? .red : .blue)
-                            }
+            // Scrollable chart
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0) {
+                        if isLoadingMore {
+                            ProgressView()
+                                .frame(width: 40)
                         }
 
-                        RuleMark(y: .value("Target", dailyTarget))
-                            .foregroundStyle(.orange)
-                            .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 3]))
-                            .annotation(position: .top, alignment: .trailing) {
-                                Text("Target")
-                                    .font(.caption2)
-                                    .foregroundStyle(.orange)
+                        Chart {
+                            ForEach(entries) { entry in
+                                if let date = entry.parsedDate {
+                                    BarMark(
+                                        x: .value("Date", date, unit: .day),
+                                        y: .value("Calories", entry.totalCalories)
+                                    )
+                                    .foregroundStyle(entry.totalCalories > dailyTarget ? .red : .blue)
+                                }
                             }
-                    }
-                    .chartXAxis {
-                        AxisMarks(values: .stride(by: .day, count: 3)) { value in
-                            if let date = value.as(Date.self) {
-                                let day = Calendar.current.component(.day, from: date)
-                                if day == 1 {
-                                    AxisValueLabel {
-                                        VStack(spacing: 2) {
-                                            Text(date, format: .dateTime.month(.abbreviated))
-                                                .font(.caption2)
-                                                .fontWeight(.bold)
+
+                            RuleMark(y: .value("Target", dailyTarget))
+                                .foregroundStyle(.orange)
+                                .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 3]))
+                                .annotation(position: .top, alignment: .trailing) {
+                                    Text("Target")
+                                        .font(.caption2)
+                                        .foregroundStyle(.orange)
+                                }
+                        }
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: .day, count: 3)) { value in
+                                if let date = value.as(Date.self) {
+                                    let day = Calendar.current.component(.day, from: date)
+                                    if day == 1 {
+                                        AxisValueLabel {
+                                            VStack(spacing: 2) {
+                                                Text(date, format: .dateTime.month(.abbreviated))
+                                                    .font(.caption2)
+                                                    .fontWeight(.bold)
+                                                Text("\(day)")
+                                                    .font(.caption2)
+                                            }
+                                        }
+                                    } else {
+                                        AxisValueLabel {
                                             Text("\(day)")
                                                 .font(.caption2)
                                         }
                                     }
-                                } else {
-                                    AxisValueLabel {
-                                        Text("\(day)")
-                                            .font(.caption2)
-                                    }
+                                    AxisGridLine()
+                                    AxisTick()
                                 }
-                                AxisGridLine()
-                                AxisTick()
                             }
                         }
+                        .chartYAxis(.hidden)
+                        .frame(width: max(chartWidth, 300), height: 200)
+                        .id("calorieChart")
                     }
-                    .chartYAxis {
-                        AxisMarks(position: .leading)
-                    }
-                    .frame(width: max(chartWidth, 300), height: 200)
-                    .id("calorieChart")
-                }
-                .background(
-                    GeometryReader { geo in
-                        Color.clear
-                            .onChange(of: geo.frame(in: .named("calorieScroll")).minX) { _, newValue in
-                                if newValue > -100 {
-                                    onLoadMore()
+                    .background(
+                        GeometryReader { geo in
+                            Color.clear
+                                .onChange(of: geo.frame(in: .named("calorieScroll")).minX) { _, newValue in
+                                    if newValue > -100 {
+                                        onLoadMore()
+                                    }
                                 }
-                            }
-                    }
-                )
-            }
-            .coordinateSpace(name: "calorieScroll")
-            .frame(height: 200)
-            .onAppear {
-                proxy.scrollTo("calorieChart", anchor: .trailing)
+                        }
+                    )
+                }
+                .coordinateSpace(name: "calorieScroll")
+                .onAppear {
+                    proxy.scrollTo("calorieChart", anchor: .trailing)
+                }
             }
         }
+        .frame(height: 200)
     }
 }
