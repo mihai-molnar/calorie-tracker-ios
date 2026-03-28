@@ -11,19 +11,28 @@ struct DashboardView: View {
                 if let vm = viewModel {
                     if vm.isLoading && vm.today == nil {
                         ProgressView()
-                    } else if let today = vm.today {
+                    } else if vm.today != nil {
                         ScrollView {
                             VStack(spacing: 16) {
-                                SummaryCardView(today: today)
+                                SummaryCardView(today: vm.today!)
 
-                                WeightChartView(entries: vm.weightEntries(from: vm.allEntries).reversed())
+                                WeightChartView(
+                                    entries: vm.weightEntries(from: vm.allEntries).reversed(),
+                                    isLoadingMore: vm.isLoadingMore,
+                                    onLoadMore: { Task { await vm.loadMore() } }
+                                )
 
                                 CalorieChartView(
-                                    entries: Array(vm.allEntries.prefix(30).reversed()),
-                                    dailyTarget: today.dailyCalorieTarget
+                                    entries: vm.allEntries.reversed(),
+                                    dailyTarget: vm.today!.dailyCalorieTarget,
+                                    isLoadingMore: vm.isLoadingMore,
+                                    onLoadMore: { Task { await vm.loadMore() } }
                                 )
                             }
                             .padding()
+                        }
+                        .refreshable {
+                            await vm.loadDashboard()
                         }
                     } else if let error = vm.errorMessage {
                         ContentUnavailableView {
@@ -47,9 +56,14 @@ struct DashboardView: View {
             self.viewModel = vm
             await vm.loadDashboard()
         }
+        .onAppear {
+            if let vm = viewModel, vm.today != nil {
+                Task { await vm.refreshLatest() }
+            }
+        }
         .onChange(of: scenePhase) {
-            if scenePhase == .active, let vm = viewModel {
-                Task { await vm.loadDashboard() }
+            if scenePhase == .active, let vm = viewModel, vm.today != nil {
+                Task { await vm.refreshLatest() }
             }
         }
     }
