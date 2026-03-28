@@ -16,8 +16,8 @@ final class APIClient {
         self.authManager = authManager
     }
 
-    func get<T: Decodable>(path: String, token: String? = nil) async throws -> T {
-        var request = makeRequest(path: path, method: "GET")
+    func get<T: Decodable>(path: String, token: String? = nil, queryItems: [URLQueryItem]? = nil) async throws -> T {
+        var request = makeRequest(path: path, method: "GET", queryItems: queryItems)
         if let token { request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") }
         return try await performWithRetry(request, originalToken: token)
     }
@@ -38,8 +38,10 @@ final class APIClient {
         return try await performWithRetry(request, originalToken: token)
     }
 
-    private func makeRequest(path: String, method: String) -> URLRequest {
-        var request = URLRequest(url: baseURL.appendingPathComponent(path))
+    private func makeRequest(path: String, method: String, queryItems: [URLQueryItem]? = nil) -> URLRequest {
+        var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+        components.queryItems = queryItems
+        var request = URLRequest(url: components.url!)
         request.httpMethod = method
         return request
     }
