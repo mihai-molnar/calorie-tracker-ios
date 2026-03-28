@@ -18,5 +18,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo of your meal to estimate calories</string>
 </dict>
 </plist>

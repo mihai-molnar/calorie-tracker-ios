@@ -1,9 +1,13 @@
 import SwiftUI
+import PhotosUI
 
 struct ChatView: View {
     @Environment(AuthManager.self) private var authManager
     @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel: ChatViewModel?
+    @State private var showingImagePicker = false
+    @State private var showingCamera = false
+    @State private var photoPickerItem: PhotosPickerItem?
     @FocusState private var isInputFocused: Bool
 
     var body: some View {
@@ -67,8 +71,48 @@ struct ChatView: View {
 
                 Divider()
 
+                // Photo preview
+                if let image = vm.selectedImage {
+                    HStack {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 60, height: 60)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                        Button {
+                            vm.selectedImage = nil
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(.secondary)
+                        }
+
+                        Spacer()
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.top, 8)
+                }
+
                 // Input bar
                 HStack(spacing: 10) {
+                    // Camera button
+                    Menu {
+                        Button {
+                            showingCamera = true
+                        } label: {
+                            Label("Take Photo", systemImage: "camera")
+                        }
+                        Button {
+                            showingImagePicker = true
+                        } label: {
+                            Label("Choose from Library", systemImage: "photo.on.rectangle")
+                        }
+                    } label: {
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.blue)
+                    }
+
                     TextField("What did you eat?", text: Binding(
                         get: { vm.messageText },
                         set: { vm.messageText = $0 }
@@ -111,6 +155,63 @@ struct ChatView: View {
             if scenePhase == .active, let vm = viewModel {
                 Task { await vm.loadHistory() }
             }
+        }
+        .photosPicker(isPresented: $showingImagePicker, selection: $photoPickerItem, matching: .images)
+        .onChange(of: photoPickerItem) {
+            if let item = photoPickerItem {
+                Task {
+                    if let data = try? await item.loadTransferable(type: Data.self),
+                       let image = UIImage(data: data) {
+                        viewModel?.selectedImage = image
+                    }
+                    photoPickerItem = nil
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showingCamera) {
+            CameraView { image in
+                viewModel?.selectedImage = image
+            }
+            .ignoresSafeArea()
+        }
+    }
+}
+
+struct CameraView: UIViewControllerRepresentable {
+    let onImageCaptured: (UIImage) -> Void
+    @Environment(\.dismiss) private var dismiss
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onImageCaptured: onImageCaptured, dismiss: dismiss)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let onImageCaptured: (UIImage) -> Void
+        let dismiss: DismissAction
+
+        init(onImageCaptured: @escaping (UIImage) -> Void, dismiss: DismissAction) {
+            self.onImageCaptured = onImageCaptured
+            self.dismiss = dismiss
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                onImageCaptured(image)
+            }
+            dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            dismiss()
         }
     }
 }
