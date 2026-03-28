@@ -9,32 +9,18 @@ struct DashboardView: View {
         NavigationStack {
             Group {
                 if let vm = viewModel {
-                    if vm.isLoading && vm.data == nil {
+                    if vm.isLoading && vm.today == nil {
                         ProgressView()
-                    } else if let data = vm.data {
+                    } else if let today = vm.today {
                         ScrollView {
                             VStack(spacing: 16) {
-                                SummaryCardView(today: data.today)
+                                SummaryCardView(today: today)
 
-                                // 7-day average
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text("7-Day Average")
-                                            .font(.headline)
-                                        Text("\(vm.calculateSevenDayAverage(from: data.history)) kcal")
-                                            .font(.title2)
-                                            .fontWeight(.bold)
-                                    }
-                                    Spacer()
-                                }
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
-
-                                WeightChartView(entries: vm.weightEntries(from: data.history).reversed())
+                                WeightChartView(entries: vm.weightEntries(from: vm.allEntries).reversed())
 
                                 CalorieChartView(
-                                    entries: Array(data.history.prefix(30).reversed()),
-                                    dailyTarget: data.today.dailyCalorieTarget
+                                    entries: Array(vm.allEntries.prefix(30).reversed()),
+                                    dailyTarget: today.dailyCalorieTarget
                                 )
                             }
                             .padding()
