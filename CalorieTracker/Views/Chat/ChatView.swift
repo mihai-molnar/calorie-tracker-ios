@@ -30,6 +30,11 @@ struct ChatView: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         LazyVStack(spacing: 8) {
+                            if vm.messages.isEmpty && !vm.isLoadingHistory && !vm.isSending {
+                                TutorialView()
+                                    .padding(.top, 20)
+                            }
+
                             ForEach(vm.messages) { message in
                                 ChatBubbleView(message: message)
                                     .id(message.id)

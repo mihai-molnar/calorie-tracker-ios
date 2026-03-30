@@ -17,6 +17,11 @@ struct SettingsView: View {
                             }
                         }
 
+                        Section("How to Use") {
+                            TutorialView()
+                                .listRowInsets(EdgeInsets())
+                        }
+
                         Section {
                             Button("Log Out", role: .destructive) {
                                 vm.logout()
