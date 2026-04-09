@@ -4,7 +4,7 @@
 
 - [ ] **HTTPS** — Set up SSL on the VPS with Let's Encrypt + nginx. Remove ATS exceptions from Info.plist and update `Configuration.swift` to use `https://`.
 - [ ] **Supabase Pro** — Upgrade to Pro plan ($25/month). Free tier pauses the database after 1 week of inactivity.
-- [ ] **Apple Developer Account** — Enroll in Apple Developer Program ($99/year) if not already.
+- [ ] **Apple Developer Account** — Enroll in Apple Developer Program ($99/year) as an **Organization** under the Romanian SRL (not as an individual). Requires a D-U-N-S number for the company — request one for free at dnb.com if not already registered. Apple verifies the legal entity during enrollment, which can take a few days.
 - [ ] **App Store assets** — App icon (1024x1024), screenshots, description, privacy policy URL.
 - [ ] **Privacy policy** — Required by App Store. Must disclose: data collected (email, weight, food logs, photos sent but not stored), third-party services (Supabase, OpenAI).
 
