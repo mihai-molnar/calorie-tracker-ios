@@ -56,6 +56,11 @@ struct ChatView: View {
                             }
                         }
                     }
+                    .onChange(of: vm.messages.last?.content) {
+                        if let lastId = vm.messages.last?.id {
+                            proxy.scrollTo(lastId, anchor: .bottom)
+                        }
+                    }
                     .onChange(of: vm.isSending) {
                         if vm.isSending {
                             withAnimation {
