@@ -1,7 +1,9 @@
 import Foundation
 
 enum SSEEvent {
-    case message(ChatSSEResponse)
+    case chunk(String)
+    case complete(ChatCompleteResponse)
+    case error(String)
     case done
 }
 
@@ -40,7 +42,7 @@ final class SSEParser {
     private func tryDispatch() -> SSEEvent? {
         guard let event = currentEvent else { return nil }
         // Need data field to be set (even if empty string for "done")
-        guard currentData != nil else { return nil }
+        guard let dataStr = currentData else { return nil }
 
         defer {
             currentEvent = nil
@@ -51,11 +53,24 @@ final class SSEParser {
             return .done
         }
 
-        if event == "message",
-           let dataStr = currentData,
-           let jsonData = dataStr.data(using: .utf8),
-           let response = try? decoder.decode(ChatSSEResponse.self, from: jsonData) {
-            return .message(response)
+        guard let jsonData = dataStr.data(using: .utf8) else { return nil }
+
+        if event == "chunk",
+           let chunk = try? decoder.decode(ChatChunkResponse.self, from: jsonData) {
+            return .chunk(chunk.text)
+        }
+
+        if event == "complete",
+           let complete = try? decoder.decode(ChatCompleteResponse.self, from: jsonData) {
+            return .complete(complete)
+        }
+
+        if event == "error" {
+            struct ErrorPayload: Codable { let message: String }
+            if let payload = try? decoder.decode(ErrorPayload.self, from: jsonData) {
+                return .error(payload.message)
+            }
+            return .error("Unknown error")
         }
 
         return nil

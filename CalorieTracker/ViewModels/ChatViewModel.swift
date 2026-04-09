@@ -118,11 +118,17 @@ final class ChatViewModel {
 
     @MainActor
     private func streamChat(_ text: String, image: String? = nil, token: String) async throws {
+        var inProgressIndex: Int?
         for try await event in sseClient.sendMessage(text, image: image, token: token) {
             switch event {
-            case .message(let response):
-                let assistantMessage = ChatMessage(role: "assistant", content: response.text)
-                messages.append(assistantMessage)
+            case .chunk(let delta):
+                if let idx = inProgressIndex {
+                    messages[idx].content += delta
+                } else {
+                    messages.append(ChatMessage(role: "assistant", content: delta))
+                    inProgressIndex = messages.count - 1
+                }
+            case .complete(let response):
                 let caloriesChanged = totalCalories != response.totalCalories
                 totalCalories = response.totalCalories
                 if let weight = response.weightKg {
@@ -131,6 +137,8 @@ final class ChatViewModel {
                 if caloriesChanged {
                     dataApplied = true
                 }
+            case .error(let message):
+                errorMessage = message
             case .done:
                 break
             }

@@ -10,8 +10,7 @@
 
 ## Recommended
 
-- [ ] **Multiple uvicorn workers** — Run `uvicorn --workers 4` or use gunicorn. Single worker can't handle concurrent users.
-- [ ] **Async OpenAI client** — Switch from `OpenAI()` to `AsyncOpenAI()` in chat endpoint to avoid blocking workers during API calls.
+- [ ] **Multiple uvicorn workers** — Add `--workers 2` (or more) to `deploy/calorie-tracker.service`. Less urgent now that the chat endpoint is fully async (AsyncOpenAI + streaming), but Supabase client calls are still synchronous and briefly block the event loop. 2 workers gives headroom under load. Note: the in-memory rate limiter will become per-worker — move to Redis if that matters.
 - [ ] **Error monitoring** — Add Sentry or similar to backend to catch production errors.
 - [ ] **Database backups** — Supabase Pro includes daily backups, but verify they're enabled.
 

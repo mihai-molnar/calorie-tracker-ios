@@ -3,7 +3,7 @@ import Foundation
 struct ChatMessage: Codable, Identifiable {
     let id: UUID
     let role: String
-    let content: String
+    var content: String
 
     init(id: UUID = UUID(), role: String, content: String) {
         self.id = id
@@ -30,8 +30,11 @@ struct ChatHistoryResponse: Codable {
     let dailyCalorieTarget: Int
 }
 
-struct ChatSSEResponse: Codable {
+struct ChatChunkResponse: Codable {
     let text: String
+}
+
+struct ChatCompleteResponse: Codable {
     let dataApplied: Bool
     let totalCalories: Int
     let weightKg: Double?

@@ -25,15 +25,23 @@ final class ChatMessageTests: XCTestCase {
         XCTAssertEqual(response.dailyCalorieTarget, 2100)
     }
 
-    func testDecodeChatSSEResponse() throws {
+    func testDecodeChatChunkResponse() throws {
+        let json = #"{"text": "Got "}"#
+        let data = json.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let chunk = try decoder.decode(ChatChunkResponse.self, from: data)
+        XCTAssertEqual(chunk.text, "Got ")
+    }
+
+    func testDecodeChatCompleteResponse() throws {
         let json = """
-        {"text": "Got it!", "data_applied": true, "total_calories": 350, "weight_kg": null}
+        {"data_applied": true, "total_calories": 350, "weight_kg": null}
         """
         let data = json.data(using: .utf8)!
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let response = try decoder.decode(ChatSSEResponse.self, from: data)
-        XCTAssertEqual(response.text, "Got it!")
+        let response = try decoder.decode(ChatCompleteResponse.self, from: data)
         XCTAssertTrue(response.dataApplied)
         XCTAssertEqual(response.totalCalories, 350)
         XCTAssertNil(response.weightKg)
